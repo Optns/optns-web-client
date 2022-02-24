@@ -57,6 +57,16 @@ const OrderBook = () => {
         setValue(index);
     }
 
+    const getIndicatorColorMap = (value: number): string => {
+        const colors: {[index: number]: string} = {
+            0: "green",
+            1: "red",
+            2: "#90caf9"
+        }
+
+        return colors[value] ?? "#90caf9"
+    }
+
     return (
         <>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -65,7 +75,7 @@ const OrderBook = () => {
                     centered
                     TabIndicatorProps={{
                         style: {
-                            backgroundColor: value === 0 ? 'green' : 'red',
+                            backgroundColor: getIndicatorColorMap(value),
                         }
                     }}
                 >
@@ -74,6 +84,9 @@ const OrderBook = () => {
                     }} />
                     <Tab label="Put"  {...a11yProps(1)} sx={{
                         color: "error.main",
+                    }} />
+                    <Tab label="Sell"  {...a11yProps(1)} sx={{
+                        color: "primary.main",
                     }} />
                 </Tabs>
             </Box>
@@ -103,7 +116,7 @@ const OrderBook = () => {
                         spacing={1}
                         divider={<Divider orientation="vertical" flexItem />}
                     >
-                       <Item>Item 1</Item>
+                        <Item>Item 1</Item>
                         <Item>Item 2</Item>
                         <Item>Item 3</Item>
                     </Stack>  

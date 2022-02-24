@@ -23,15 +23,12 @@ const OrderBookSelectBox = () => {
 
     return (
         <>
-            <Grid container justifyContent="center" alignItems="center" spacing={2} sx={{
+            <Grid container justifyContent="center" alignItems="center" sx={{
                 color: 'primary.main'
             }}>
-                <Grid item>
-                    <FormControl>
+                <Grid item xs={11}>
+                    <FormControl sx={{width: '100%'}}>
                         <Autocomplete
-                            style={{
-                                minWidth: '450px'
-                            }}
                             freeSolo
                             disableClearable
                             options={orderbooks.map((option) => option)}
@@ -57,10 +54,13 @@ const OrderBookSelectBox = () => {
                                     }}
                                 />
                             )}
+                            sx={{
+                                width: '100%'
+                            }}
                         />  
                     </FormControl>
                 </Grid>
-                <Grid item>
+                <Grid item xs={1} sx={{ paddingLeft: 1 }}>
                     {
                         inputOrderbookAddress && inputOrderbookAddress.valid
                         && <OrderbookTooltip address={inputOrderbookAddress?.address} />

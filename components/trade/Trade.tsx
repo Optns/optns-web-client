@@ -15,19 +15,14 @@ const Trade = () => {
                 container
                 direction="column"
                 justifyContent="center"
-                alignItems="center"
-                spacing={1}
-                sx={{
-                    paddingTop: 2
-                }}
+                alignItems="stretch"
             >
                 <Grid item>
                     <OrderBookSelectBox />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item>
                     <OrderBook />
                 </Grid>
-
             </Grid>
         </Container>
     )

@@ -9,33 +9,22 @@ const Layout = () => {
 
     return(
         <ThemeProvider theme={darkTheme}>
-            <Container sx={{
+            <Container maxWidth={false} sx={{
                 bgcolor: "background.default",
                 minWidth: "100vw",
-                minHeight: "100vh"
+                minHeight: "100vh",
+                p: 2
             }}>
                 <Grid
                     container
-                    direction="column"
                     justifyContent="center"
-                    alignItems="center"
-                    sx={{
-                        minWidth: "100vw",
-                        minHeight: "100vh"
-                    }}
-                >
-                    <Grid item sx={{
-                        width: '60%',
-                        minWidth: '576px'
-                    }}>
-                        <Grid container direction="column" sx={{
-                           
-                        }}>
-                            <Header></Header>
-                            <Trade />
-                        </Grid>
+                    alignItems="center">
+                    <Grid container direction="column" sx={{ maxWidth: '780px'}} >
+                        <Header></Header>
+                        <Trade />
                     </Grid>
                 </Grid>
+               
 
             </Container>
         </ThemeProvider>
