@@ -22,8 +22,9 @@ const ImportOrderbook = () => {
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex' }}>
                 <TextField
-                    label="Enter Orderbook Address"
+                    label="Orderbook Address"
                     variant="outlined"
+                    placeholder="0x...."
                     size="small"
                     sx={{
                         width: '100%'

@@ -26,10 +26,11 @@ const SearchToken = () => {
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ display: 'flex' }}>
                 <TextField
-                    label="Enter Token Name or Address"
+                    label="Token Name or Address"
                     variant="outlined"
                     size="small"
                     onChange={handleChange}
+                    placeholder="0x...."
                     sx={{
                         width: '100%'
                     }} />
