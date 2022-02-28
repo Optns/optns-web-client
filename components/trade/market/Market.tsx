@@ -1,15 +1,12 @@
-import { Autocomplete, Box, Button, Divider, FormControl, FormHelperText, Grid, Icon, IconButton, InputBase, Modal, Paper, TextField, Typography } from "@mui/material"
+import { Divider, Grid, Typography, IconButton, Paper, Box, Popper, Fade, Button } from "@mui/material"
 import { ethers } from "ethers"
-import { FC, useState } from "react"
+import { FC, useEffect, useRef, useState } from "react"
 import React from "react";
-import OrderbookTooltip from "./MarketTooltip";
-import Link from "next/link";
-import AddMarketButton from "./AddMarketButton";
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
 import AddIcon from '@mui/icons-material/Add';
 import { EContainer } from "../Trade";
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import { useTheme, styled } from '@mui/material/styles';
+import SelectTokenPoper from "./SelectTokenPoper";
 
 type InputAddress = {
     address: string,
@@ -31,69 +28,73 @@ const style = {
 interface IOrderBookSelectBox {
     setSelectedContainer(arg0: EContainer): void
 }
-
 const OrderBookSelectBox: FC<IOrderBookSelectBox> = (props) => {
-    const [inputOrderbookAddress, setInputOrderbookAddress] = useState<InputAddress>()
+    const [selectAddressAnchorEl, setSelectAddressAnchorEl] = useState<HTMLElement | null>(null)
+    const selectAddressPopperRef = useRef<HTMLFormElement | null>(null)
+    const openSelectAddress = Boolean(selectAddressAnchorEl)
 
-    const isAddress = (address: string): boolean => {
-        return ethers.utils.isAddress(address)
+    useEffect(() => {
+        if (selectAddressAnchorEl) {
+            document.addEventListener("click", handleClickOutsidePopper, true)
+        }
+        else {
+            document.removeEventListener("click", handleClickOutsidePopper, true)
+        }
+
+        return (() => {
+            document.removeEventListener("click", handleClickOutsidePopper, true)
+        })
+    }, [selectAddressAnchorEl])
+
+    const handleClickOutsidePopper = (event: any) => {
+        if (
+            selectAddressPopperRef.current
+            && !selectAddressPopperRef.current.contains(event.target)
+        ) {
+            setSelectAddressAnchorEl(null)
+        }
     }
 
-    const openLinkEtherscan = () => {
-        window.open(`https://etherscan.io/address/${inputOrderbookAddress!.address}`, '_blank')
+    const handleClickSelectAddress = (event: React.MouseEvent<HTMLElement>) => {
+        setSelectAddressAnchorEl(selectAddressAnchorEl ? null : event.currentTarget)
     }
 
     return (
-        <>
-            <Grid container justifyContent="flex-start" alignItems="center" sx={{
-                color: 'primary.main',
-                p: 0
-            }}>
+        <Box ref={selectAddressPopperRef}>
+            <Grid
+                container direction="column"
+                justifyContent="flex-start"
+                alignItems="center"
+                sx={{
+                    color: 'primary.main',
+                    p: 0,
+                    position: 'relative'
+                }}>
                 <Paper
                     component="form"
-                    sx={{ display: 'flex', alignItems: 'center', width: '100%' }}
-                    >
-                    <Autocomplete
-                        freeSolo
-                        disableClearable
-                        options={orderbooks.map((option) => option)}
-                        defaultValue={orderbooks[0]}
-                        onInputChange={(_, newInputValue) => {
-                            isAddress(newInputValue)
-                            ? setInputOrderbookAddress({
-                                address: newInputValue,
-                                valid: true
-                            })
-                            : setInputOrderbookAddress({
-                                address: newInputValue,
-                                valid: false
-                            })
-                        }}
-                        renderInput={(params) => (
-                            <TextField {...params} label="Address" />
-                        )}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: '100%'
+                    }}>
+                    <IconButton
+                        onClick={() => props.setSelectedContainer(EContainer.ADD_MARKET)}
                         sx={{
-                            width: '100%'
-                        }}
-                    />  
-                    {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" /> */}
-                    <IconButton>
-                        <AddIcon color='primary' onClick={() => props.setSelectedContainer(EContainer.ADD_MARKET)} />
+                            borderRadius: 2
+                        }}>
+                        <AddIcon color='primary' />
                     </IconButton>
+                    <Divider orientation="vertical" sx={{ height: 28, m: 0.5 }} />
+                    <Button onClick={handleClickSelectAddress} sx={{
+                        paddingLeft: 1,
+                        width: '100%'
+                    }}>
+                        Select orderbook
+                    </Button>
                 </Paper>
+                {openSelectAddress && <SelectTokenPoper />}
             </Grid>
-            {
-                (!inputOrderbookAddress || inputOrderbookAddress.address.length === 0)
-                ? <Typography fontSize="small"  sx={{ color: "primary.main" }}>
-                    Please select or enter orderbook
-                </Typography>
-                : !inputOrderbookAddress.valid
-                    && <Typography fontSize="small" sx={{ color: "error.main" }}>
-                        Invalid address
-                    </Typography>
-                       
-            }
-        </>
+        </Box>
     )
 }
 
@@ -101,4 +102,4 @@ const orderbooks = [
     '0x392AAAedce2c5f873D4C7f232af02Ac43F67274B'
 ]
 
-export default OrderBookSelectBox
+export default React.memo(OrderBookSelectBox)

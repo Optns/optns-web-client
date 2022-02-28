@@ -14,10 +14,11 @@ const Trade = () => {
 
     const [selectedContainer, setSelectedContainer] = useState<EContainer>(EContainer.TRADE)
 
-    return(
+    return (
         <Container sx={{
             bgcolor: "background.paper",
             width: '100%',
+            height: '90vh',
             borderRadius: 2,
             p: 2,
             boxShadow: 2
@@ -49,7 +50,7 @@ const Trade = () => {
                         </Grid>
                     )
                 }
-                
+
             </Grid>
         </Container>
     )

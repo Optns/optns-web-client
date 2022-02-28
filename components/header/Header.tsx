@@ -1,9 +1,10 @@
 import { Grid } from "@mui/material"
+import React from "react"
 import Logo from "../common/Logo"
 import ConnectWalletButton from "../trade/connectWallet/ConnectWalletButton"
 
 const Header = () => {
-    
+
 
     return (
         <Grid
@@ -21,4 +22,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default React.memo(Header)

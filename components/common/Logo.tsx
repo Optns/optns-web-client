@@ -1,10 +1,11 @@
 import Image from "next/image"
 import logo from "./../../public/optn-white-transparent.png"
 import { Typography, Grid } from '@mui/material'
+import React from "react"
 
 const Logo = () => {
 
-    return(
+    return (
         <Grid container justifyContent="center" alignItems="center">
             <Grid item xs="auto">
                 <Image src={logo} alt="Optns Logo" width={35} height={35} />
@@ -14,8 +15,8 @@ const Logo = () => {
                     color: 'text.primary'
                 }}>Optns</Typography>
             </Grid>
-        </Grid> 
+        </Grid>
     )
 }
 
-export default Logo
+export default React.memo(Logo)

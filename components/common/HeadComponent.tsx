@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import React from 'react'
 import { FC } from 'react'
 
 export type Meta = {
@@ -23,7 +24,7 @@ const HeadComponent: FC<Props> = (props: Props) => {
 
     return (
         <Head>
-            <title>{ props.title }</title>
+            <title>{props.title}</title>
             {
                 props.metaList.map(meta => {
                     <meta name={meta.name} content={meta.content} />
@@ -34,4 +35,4 @@ const HeadComponent: FC<Props> = (props: Props) => {
     )
 }
 
-export default HeadComponent
+export default React.memo(HeadComponent)

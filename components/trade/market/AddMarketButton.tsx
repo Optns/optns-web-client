@@ -1,13 +1,14 @@
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
+import React from 'react';
 
 const AddMarketButton = () => {
 
-    return(
+    return (
         <IconButton>
             <AddIcon color='primary' />
         </IconButton>
     )
 }
 
-export default AddMarketButton
+export default React.memo(AddMarketButton)

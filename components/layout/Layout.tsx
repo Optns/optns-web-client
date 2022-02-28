@@ -1,13 +1,14 @@
 import { ThemeProvider } from "@emotion/react"
 import { Container, Grid } from "@mui/material"
 import { height } from "@mui/system"
+import React from "react"
 import darkTheme from "../../theme"
 import Header from "../header/Header"
 import Trade from "../trade/Trade"
 
 const Layout = () => {
 
-    return(
+    return (
         <ThemeProvider theme={darkTheme}>
             <Container maxWidth={false} sx={{
                 bgcolor: "background.default",
@@ -19,16 +20,16 @@ const Layout = () => {
                     container
                     justifyContent="center"
                     alignItems="center">
-                    <Grid container direction="column" sx={{ maxWidth: '780px'}} >
+                    <Grid container direction="column" sx={{ maxWidth: '780px' }} >
                         <Header></Header>
                         <Trade />
                     </Grid>
                 </Grid>
-               
+
 
             </Container>
         </ThemeProvider>
     )
 }
 
-export default Layout
+export default React.memo(Layout)
